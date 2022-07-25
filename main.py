@@ -309,6 +309,8 @@ else:
 st.button("グラフが出力されない場合はここをクリック")
 
 
-
+t0 = time()
+while time() - t0 < 10:
+    pass
 for f in os.listdir("figs"):
     os.remove(os.path.join("figs", f))
