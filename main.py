@@ -83,7 +83,6 @@ db_y, y_db_name = choose_data(path, xy="y")
 
 st.text("\n\n\n")
 
-########################################################
 class Plotter:
     def __init__(self, x_db, y_db, x_data_name, y_data_name):
         self.x_db = x_db
@@ -226,6 +225,7 @@ class Plotter:
         plt.xlim(xrange)
         plt.ylim(yrange)
         t = str(time())
+        fig_file_name = t+".png"
         plt.savefig("figs/"+t+".png")
         image = Image.open("figs/"+t+".png")
         st.image(image, width=750)
@@ -237,6 +237,7 @@ class Plotter:
             st.text(country)
         st.text("******************")
 
+        return fig_file_name
 
     def range_hist2d(self, xrange=[None, None], yrange=[None, None], xybins=[100,100], logscale=True):
         group = None
@@ -279,6 +280,7 @@ class Plotter:
         plt.xlim(xrange)
         plt.ylim(yrange)
         t = str(time())
+        fig_file_name = t+".png"
         plt.savefig("figs/"+t+".png")
         image = Image.open("figs/"+t+".png")
         st.image(image, width=750)
@@ -290,7 +292,8 @@ class Plotter:
             st.text(country)
         st.text("******************")
 
-########################################################
+        return fig_file_name
+
 
 plotter = Plotter(db_x, db_y, x_db_name, y_db_name)
 
@@ -301,16 +304,13 @@ with st.form(key="plot"):
         ("散布図", "ヒートマップ"),
     )
     st.form_submit_button("決定")
+figfilename = None
 if graph_type == "散布図":
-    plotter.range_scatter()
+    figfilename = plotter.range_scatter()
 else:
-    plotter.range_hist2d()
-
-st.button("グラフが出力されない場合はここをクリック")
+    figfilename = plotter.range_hist2d()
 
 
-t0 = time()
-while time() - t0 < 10:
-    pass
 for f in os.listdir("figs"):
-    os.remove(os.path.join("figs", f))
+    if f != figfilename:
+        os.remove(os.path.join("figs", f))
