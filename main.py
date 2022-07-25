@@ -189,10 +189,13 @@ class Plotter:
         return new_x_db, new_y_db
 
     def range_scatter(self, xrange=[None, None], yrange=[None, None]):
-        group = st.selectbox(
-            "分析対象の国の種類を選んでください",
-            ("限定しない", "先進国限定", "発展途上国限定", "変動為替相場制と思われる国限定", "共通通貨使用国限定")
-        )
+        group = None
+        with st.form(key="scatter"):
+            group = st.selectbox(
+                "分析対象の国の種類を選んでください",
+                ("限定しない", "先進国限定", "発展途上国限定", "変動為替相場制と思われる国限定", "共通通貨使用国限定")
+            )
+            st.form_submit_button("確認")
         x_db, y_db, x_arr, y_arr = None, None, None, None
         if "限定しない" == group:
             x_db, y_db = self.x_db, self.y_db
@@ -236,10 +239,13 @@ class Plotter:
 
 
     def range_hist2d(self, xrange=[None, None], yrange=[None, None], xybins=[100,100], logscale=True):
-        group = st.selectbox(
-            "分析対象の国の種類を選んでください",
-            ("限定しない", "先進国限定", "発展途上国限定", "変動為替相場制と思われる国限定", "共通通貨使用国限定")
-        )
+        group = None
+        with st.form(key="heatmap"):
+            group = st.selectbox(
+                "分析対象の国の種類を選んでください",
+                ("限定しない", "先進国限定", "発展途上国限定", "変動為替相場制と思われる国限定", "共通通貨使用国限定")
+            )
+            st.form_submit_button("確認")
         x_db, y_db, x_arr, y_arr = None, None, None, None
         if "限定しない" == group:
             x_db, y_db = self.x_db, self.y_db
