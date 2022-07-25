@@ -297,7 +297,7 @@ class Plotter:
 
 plotter = Plotter(db_x, db_y, x_db_name, y_db_name)
 
-
+st.title("グラフの設定")
 with st.form(key="plot"):
     graph_type = st.selectbox(
         "グラフの種類を選択",
