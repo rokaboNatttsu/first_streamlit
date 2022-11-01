@@ -22,7 +22,7 @@ def choose_data(path, xy="x"):
             
     with st.form(key="input_info2"+xy):
         kind_of_variable = st.selectbox(
-            "x軸の変数の種類を指定してください",
+            "変数の種類を指定してください",
             ("成長率", "現地通貨建ての変数", "GDP比", "GDP比の増加幅", "人口"),
         )
         st.form_submit_button("決定")
@@ -45,7 +45,7 @@ def choose_data(path, xy="x"):
         
     with st.form(key="input_info3"+xy):
         variable_name = st.selectbox(
-            "x軸の変数を指定してください",
+            "変数を指定してください",
             tuple(value_name_lst),
         )
         st.form_submit_button("決定")
